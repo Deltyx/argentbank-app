@@ -15,7 +15,7 @@ export default function Navbar() {
             <h1 className="sr-only">Argent Bank</h1>
         </Link>
         <Link to='/sign-in' className="main-nav-item">
-            <i class="fa fa-user-circle"></i>
+            <i className="fa fa-user-circle"></i>
             Sign In
         </Link>
     </nav>

@@ -8,7 +8,7 @@ html {
     color: $PRIMARY_FONT_COLOR;
   }
   
-  body {
+  body, #root {
     margin: 0;
     display: flex;
     flex-direction: column;
