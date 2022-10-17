@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from '../components/navbar/navbar';
 import Homepage from '../views/homepage/homepage';
 import Footer from '../components/footer/footer';
+import SignIn from '../views/sign_in/sign_in';
 
 export default function App() {
     return (
@@ -10,6 +11,7 @@ export default function App() {
           <Navbar/>
           <Routes>
               <Route path="/" element={<Homepage />} />
+              <Route path="/sign-in" element={<SignIn />} />
           </Routes>
           <Footer />
       </Router>
