@@ -11,7 +11,7 @@ export default function Navbar() {
   let navigate = useNavigate()
   const dispatch = useDispatch()
   const token = useSelector(state => state.auth.token)
-  const firstName = "OUI"
+  const user = useSelector(state => state.auth.user)
 
   const logoutHandler = () => {
     dispatch(logOut())
@@ -38,7 +38,7 @@ export default function Navbar() {
           <span>
             <Link to='/user' className="main-nav-item">
               <i className="fa fa-user-circle"></i>
-                {firstName}
+                {user.firstName}
             </Link>
             <Link onClick={logoutHandler} to='/sign-in' className="main-nav-item">
               <i className="fa fa-sign-out"></i>

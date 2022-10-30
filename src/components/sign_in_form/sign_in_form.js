@@ -33,6 +33,7 @@ export default function SignInForm() {
         e.preventDefault()
         try {
             const userData = await login({ email: user, password: pwd }).unwrap()
+            console.log(userData)
             dispatch(setCredentials({...userData, user}))
             setUser('')
             setPwd('')
