@@ -1,9 +1,23 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { logOut } from '../../features/auth/authSlice';
 
 import logo from '../../img/argentBankLogo.png';
 import './navbar.scss';
 
 export default function Navbar() {
+
+  let navigate = useNavigate()
+  const dispatch = useDispatch()
+  const token = useSelector(state => state.auth.token)
+  const firstName = "OUI"
+
+  const logoutHandler = () => {
+    dispatch(logOut())
+    navigate('/')
+  }
+
   return (      
     <nav className='main-nav'>
         <Link to='/' className="main-nav-logo">
@@ -14,10 +28,25 @@ export default function Navbar() {
             />
             <h1 className="sr-only">Argent Bank</h1>
         </Link>
-        <Link to='/sign-in' className="main-nav-item">
+        {!token ? (
+          <Link to='/sign-in' className="main-nav-item">
             <i className="fa fa-user-circle"></i>
-            Sign In
-        </Link>
+              Sign In
+          </Link>
+        ) : ('')}
+        {token ? (
+          <span>
+            <Link to='/user' className="main-nav-item">
+              <i className="fa fa-user-circle"></i>
+                {firstName}
+            </Link>
+            <Link onClick={logoutHandler} to='/sign-in' className="main-nav-item">
+              <i className="fa fa-sign-out"></i>
+                Sign Out
+            </Link>
+          </span>
+        ) : ('')}
+
     </nav>
   );
 }

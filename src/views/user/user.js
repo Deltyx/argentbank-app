@@ -1,6 +1,5 @@
 import Account from '../../components/account/account';
 import UserHeader from '../../components/user_header/user_header';
-import { useSelector } from 'react-redux'
 import { useState, useEffect } from 'react'
 import { useGetUserProfileQuery } from '../../features/auth/authApiSlice';
 
@@ -12,7 +11,6 @@ export default function User() {
     const [userLastName, setUserLastName] = useState('')
 
     const userInfo = useGetUserProfileQuery()
-    console.log(userInfo.currentData)
 
     useEffect(() => {
         if(userInfo){
