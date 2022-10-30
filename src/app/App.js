@@ -11,16 +11,16 @@ import User from '../views/user/user';
 
 export default function App() {
     return (
-      <Router>
-        <Provider store={store}>
-          <Navbar/>
-          <Routes>
-              <Route path="/" element={<Homepage />} />
-              <Route path="/sign-in" element={<SignIn />} />
-              <Route path="/user" element={<User />} />
-          </Routes>
-          <Footer />
-        </Provider>
-      </Router>
+      <Provider store={store}>
+        <Router>
+            <Navbar/>
+            <Routes>
+                <Route path="/" element={<Homepage />} />
+                <Route path="/sign-in" element={<SignIn />} />
+                <Route path="/user" element={<User />} />
+            </Routes>
+            <Footer />
+        </Router>
+      </Provider>
     );
 }

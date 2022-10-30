@@ -16,6 +16,8 @@ export default function SignInForm() {
     const [errMsg, setErrMsg] = useState('')
     const navigate = useNavigate()
 
+    
+
     const [login, { isLoading } ] = useLoginMutation()
     const dispatch = useDispatch()
 
@@ -30,7 +32,7 @@ export default function SignInForm() {
     const submitHandler = async (e) => {
         e.preventDefault()
         try {
-            const userData = await login({ user, pwd }).unwrap()
+            const userData = await login({ email: user, password: pwd }).unwrap()
             dispatch(setCredentials({...userData, user}))
             setUser('')
             setPwd('')
@@ -38,9 +40,9 @@ export default function SignInForm() {
         } catch (err) {
             if(!err?.originalStatus) {
                 setErrMsg('No Server Response')
-            } else if (err.response?.status === 400) {
+            } else if (err.originalStatus?.status === 400) {
                 setErrMsg('Missing Username or Password')
-            } else if (err.response?.status === 401) {
+            } else if (err.originalStatus?.status === 401) {
                 setErrMsg('Unauthorized') 
             } else (
                 setErrMsg('Login Failed')

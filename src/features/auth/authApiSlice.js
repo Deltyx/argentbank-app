@@ -8,8 +8,15 @@ export const authApiSlice = apiSlice.injectEndpoints({
                 method: 'POST',
                 body: {...credentials}
             })
+        }),
+        getUserProfile: builder.query({
+            query: userInfo => ({
+                url: 'user/profile',
+                method: 'POST',
+                body: {...userInfo}
+            })
         })
     })
 })
 
-export const { useLoginMutation } = authApiSlice;
+export const { useLoginMutation, useGetUserProfileQuery } = authApiSlice;
