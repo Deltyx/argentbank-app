@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { setCredentials } from '../../features/auth/authSlice.js'
 import { useLoginMutation } from '../../features/auth/authApiSlice.js'
 
@@ -16,7 +16,7 @@ export default function SignInForm() {
     const [errMsg, setErrMsg] = useState('')
     const navigate = useNavigate()
 
-    
+    const [checkBox, toggleCheckBox] = useState(false);    
 
     const [login, { isLoading } ] = useLoginMutation()
     const dispatch = useDispatch()
@@ -33,23 +33,28 @@ export default function SignInForm() {
         e.preventDefault()
         try {
             const userData = await login({ email: user, password: pwd }).unwrap()
-            console.log(userData)
+            if(checkBox) {
+                localStorage.remember = true
+            }
             dispatch(setCredentials({...userData, user}))
-            setUser('')
-            setPwd('')
             navigate('/user')
         } catch (err) {
-            if(!err?.originalStatus) {
+            if(!err?.status) {
                 setErrMsg('No Server Response')
-            } else if (err.originalStatus?.status === 400) {
-                setErrMsg('Missing Username or Password')
-            } else if (err.originalStatus?.status === 401) {
+            } else if (err.status === 400) {
+                setErrMsg('Wrong Username or Password')
+            } else if (err.status === 401) {
                 setErrMsg('Unauthorized') 
             } else (
                 setErrMsg('Login Failed')
             )
             errRef.current.focus();
         }
+    }
+
+    const handleCheckBox = () => {
+        toggleCheckBox(!checkBox)
+        console.log(checkBox)
     }
 
     return ( 
@@ -79,7 +84,12 @@ export default function SignInForm() {
                 />
             </div>
             <div className="input-remember">
-                <input type="checkbox" id="remember-me" />
+                <input 
+                    type="checkbox" 
+                    id="remember-me"
+                    checked={checkBox} 
+                    onChange={handleCheckBox}
+                />
                 <label htmlFor="remember-me">Remember me</label>
             </div>
             <button className="sign-in-button">Sign In</button>

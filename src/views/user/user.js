@@ -9,11 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 export default function User() {
-    const [userFirstName, setUserFirstName] = useState('')
-    const [userLastName, setUserLastName] = useState('')
-
     const token = useSelector(state => state.auth.token)
-    const user = useSelector(state => state.auth.user)
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
@@ -26,18 +22,42 @@ export default function User() {
     })
 
     useEffect(() => {
+        if(localStorage.remember) {
+            const userData = { 
+                firstName: localStorage.firstName, 
+                lastName: localStorage.lastName, 
+                email: localStorage.email, 
+                id: localStorage.id
+            }
+            dispatch(setUserInfo({...userData, userData}))
+        }
+    })
+
+    useEffect(() => {
         if(userInfo && userInfo.currentData){
-            setUserFirstName(userInfo.currentData.body.firstName)
-            setUserLastName(userInfo.currentData.body.lastName)
-            dispatch(setUserInfo({...userInfo, userInfo}))
-            console.log(userInfo.currentData)
-            console.log(user)
+            const userData = { 
+                firstName: userInfo.currentData.body.firstName, 
+                lastName: userInfo.currentData.body.lastName, 
+                email: userInfo.currentData.body.email, 
+                id: userInfo.currentData.body.id 
+            }
+            dispatch(setUserInfo({...userData, userData}))
+
+            if(localStorage.remember) {
+                localStorage.firstName = userData.firstName
+                localStorage.lastName = userData.lastName
+                localStorage.email = userData.email
+                localStorage.id = userData.id
+                localStorage.token = token
+            }
+            console.log(userInfo)
+            console.log(userData)
         }
     },[userInfo])
 
     return ( 
         <main className="main bg-dark">
-            <UserHeader firstName={userFirstName} lastName={userLastName}/>
+            <UserHeader />
             <h2 className="sr-only">Accounts</h2>
             <Account title={"Argent Bank Checking (x8349)"} amount={"$2,082.79"}/>
             <Account title={"Argent Bank Savings (x6712)"} amount={"$10,928.42"}/>

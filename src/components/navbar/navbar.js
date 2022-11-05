@@ -38,7 +38,7 @@ export default function Navbar() {
           <span>
             <Link to='/user' className="main-nav-item">
               <i className="fa fa-user-circle"></i>
-                {user.firstName}
+                {user && user.firstName}
             </Link>
             <Link onClick={logoutHandler} to='/sign-in' className="main-nav-item">
               <i className="fa fa-sign-out"></i>
