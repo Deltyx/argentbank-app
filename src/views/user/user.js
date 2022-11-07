@@ -29,12 +29,12 @@ export default function User() {
                 email: userInfo.currentData.body.email, 
                 id: userInfo.currentData.body.id 
             }
+
             dispatch(setUserInfo({...userData, userData}))
+
 
             if(localStorage.remember) {
                 localStorage.email = userData.email
-                localStorage.id = userData.id
-                localStorage.token = token
             }
             console.log(userInfo)
             console.log(userData)

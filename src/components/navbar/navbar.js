@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { logOut } from '../../features/auth/authSlice';
@@ -8,14 +8,12 @@ import './navbar.scss';
 
 export default function Navbar() {
 
-  let navigate = useNavigate()
   const dispatch = useDispatch()
   const token = useSelector(state => state.auth.token)
   const user = useSelector(state => state.auth.user)
 
   const logoutHandler = () => {
     dispatch(logOut())
-    navigate('/')
   }
 
   return (      
@@ -40,7 +38,7 @@ export default function Navbar() {
               <i className="fa fa-user-circle"></i>
                 {user && user.firstName}
             </Link>
-            <Link onClick={logoutHandler} to='/sign-in' className="main-nav-item">
+            <Link onClick={logoutHandler} to='/' className="main-nav-item">
               <i className="fa fa-sign-out"></i>
                 Sign Out
             </Link>

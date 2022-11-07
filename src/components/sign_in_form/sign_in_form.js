@@ -25,6 +25,7 @@ export default function SignInForm() {
         userRef.current.focus()
         if(localStorage.remember) {
             setUser(localStorage.email)
+            setPwd(localStorage.pwd)
         }
     },[])
 
@@ -38,11 +39,11 @@ export default function SignInForm() {
             const userData = await login({ email: user, password: pwd }).unwrap()
             if(checkBox) {
                 localStorage.remember = true
+                localStorage.pwd = pwd
             } else {
-                localStorage.removeItem('token')
                 localStorage.removeItem('email')
-                localStorage.removeItem('id')
                 localStorage.removeItem('remember')
+                localStorage.removeItem('pwd')
             }
             dispatch(setCredentials({...userData, user}))
             navigate('/user')

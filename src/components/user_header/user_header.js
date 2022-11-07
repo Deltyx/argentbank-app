@@ -38,8 +38,6 @@ export default function UserHeader() {
             }
             if(userInfoUpdate.data.status === 200) {
                 dispatch(setUserInfo({...userUserData, userUserData}))
-                localStorage.firstName = userUserData.firstName
-                localStorage.lastName = userUserData.lastName
             }
             console.log(userInfoUpdate)
             console.log(user)
