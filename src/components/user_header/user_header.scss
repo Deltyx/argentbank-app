@@ -10,3 +10,20 @@
     color: #fff;
     margin-bottom: 2rem;
   }
+
+  .editNameButtons > button {
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+  }
+
+  .editNameButtons {
+    margin-top: 1rem;
+  }
+  .editNameInputs > input {
+    padding: 5px;
+    border: none;
+    max-width: 100px;
+    margin-left: 2px;
+    margin-right: 2px;
+    font-size: 18px;
+  }

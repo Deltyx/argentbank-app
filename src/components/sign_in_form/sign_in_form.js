@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { setCredentials } from '../../features/auth/authSlice.js'
 import { useLoginMutation } from '../../features/auth/authApiSlice.js'
 
@@ -23,6 +23,9 @@ export default function SignInForm() {
 
     useEffect(() => {
         userRef.current.focus()
+        if(localStorage.remember) {
+            setUser(localStorage.email)
+        }
     },[])
 
     useEffect(() => {
@@ -35,6 +38,11 @@ export default function SignInForm() {
             const userData = await login({ email: user, password: pwd }).unwrap()
             if(checkBox) {
                 localStorage.remember = true
+            } else {
+                localStorage.removeItem('token')
+                localStorage.removeItem('email')
+                localStorage.removeItem('id')
+                localStorage.removeItem('remember')
             }
             dispatch(setCredentials({...userData, user}))
             navigate('/user')
@@ -54,7 +62,6 @@ export default function SignInForm() {
 
     const handleCheckBox = () => {
         toggleCheckBox(!checkBox)
-        console.log(checkBox)
     }
 
     return ( 

@@ -60,27 +60,28 @@ export default function UserHeader() {
                 </div>
             ) : (
             <div className="header">
-                <h1>Welcome back</h1>
-                <form className="editNameContent" onSubmit={submitHandler}>
-                    <div className="editNameInputs">
-                        <input
-                            type="text"
-                            placeholder={user && user.firstName}
-                            onChange={(e) => setNewFirstName(e.target.value)}
-                            required
-                        />
-                        <input
-                            type="text"
-                            placeholder={user && user.lastName}
-                            onChange={(e) => setNewLastName(e.target.value)}
-                            required
-                        />
-                    </div>
-                    <div className="editNameButtons">
-                        <button className="edit-button" onClick={updateUserInfo}type="submit">Save</button>
-                        <button className="edit-button" onClick={editInfoButton}>Cancel</button>
-                    </div>
-                </form>
+                <h1>Welcome back
+                    <form className="editNameContent" onSubmit={submitHandler}>
+                        <div className="editNameInputs">
+                            <input
+                                type="text"
+                                placeholder={user && user.firstName}
+                                onChange={(e) => setNewFirstName(e.target.value)}
+                                required
+                            />
+                            <input
+                                type="text"
+                                placeholder={user && user.lastName}
+                                onChange={(e) => setNewLastName(e.target.value)}
+                                required
+                            />
+                        </div>
+                        <div className="editNameButtons">
+                            <button className="edit-button" onClick={updateUserInfo} type="submit">Save</button>
+                            <button className="edit-button" onClick={editInfoButton}>Cancel</button>
+                        </div>
+                    </form>
+                </h1>
               </div>
             )}
         </>

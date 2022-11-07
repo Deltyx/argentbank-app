@@ -2,7 +2,7 @@ import './user.scss';
 
 import Account from '../../components/account/account';
 import UserHeader from '../../components/user_header/user_header';
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import { useGetUserProfileQuery } from '../../features/auth/authApiSlice';
 import { setUserInfo } from '../../features/auth/authSlice.js'
 import { useNavigate } from 'react-router-dom';
@@ -22,18 +22,6 @@ export default function User() {
     })
 
     useEffect(() => {
-        if(localStorage.remember) {
-            const userData = { 
-                firstName: localStorage.firstName, 
-                lastName: localStorage.lastName, 
-                email: localStorage.email, 
-                id: localStorage.id
-            }
-            dispatch(setUserInfo({...userData, userData}))
-        }
-    })
-
-    useEffect(() => {
         if(userInfo && userInfo.currentData){
             const userData = { 
                 firstName: userInfo.currentData.body.firstName, 
@@ -44,8 +32,6 @@ export default function User() {
             dispatch(setUserInfo({...userData, userData}))
 
             if(localStorage.remember) {
-                localStorage.firstName = userData.firstName
-                localStorage.lastName = userData.lastName
                 localStorage.email = userData.email
                 localStorage.id = userData.id
                 localStorage.token = token
